@@ -1,0 +1,37 @@
+---
+ironic_url: "http://localhost:6385/"
+network_interface: "eno1"
+ironic_db_password: aSecretPassword473z
+mysql_username: root
+mysql_password: secret
+ssh_public_key_path: "/root/.ssh/id_rsa.pub"
+enable_keystone: false
+deploy_image_filename: "deployment_image.qcow2"
+create_image_via_dib: true
+dib_os_release: "xenial"
+dib_os_element: "ubuntu-minimal"
+dib_os_packages: "vlan,vim,less,bridge-utils,sudo,language-pack-en,iputils-ping,rsyslog,curl,python,debootstrap,ifenslave,ifenslave-2.6,lsof,lvm2,tcpdump,nfs-kernel-server,chrony,iptables,resolvconf,dbus"
+dib_packages: "vlan,vim,less,bridge-utils,sudo,language-pack-en,iputils-ping,rsyslog,curl,python,debootstrap,ifenslave,ifenslave-2.6,lsof,lvm2,tcpdump,nfs-kernel-server,chrony,iptables,resolvconf,dbus"
+dib_elements: "enable-serial-console simple-init devuser growroot {{ extra_dib_elements }}"
+extra_dib_elements: "devuser growroot openssh-server"
+
+# Transform boot image is intended for use with the Ubuntu trusty image.
+# It makes the image bootable by installing Grub.
+# Setting to prepend a partition image with a boot sector and partition table.
+transform_boot_image: false
+
+# Create IPA image instead of downloading an pre-made CoreOS IPA image.
+create_ipa_image: false
+
+# Dnsmasq default route for clients. If not defined, dnsmasq will push to
+# clients as default route the same IP of the dnsmasq server.
+# Default: undefined
+dnsmasq_router: 10.20.0.2
+dhcp_pool_start: 10.20.0.10
+dhcp_pool_end: 10.20.0.20
+
+# Dnsmasq default nameserver for clients. If not defined, this setting
+# will be ignored.
+# Default: undefined
+dnsmasq_dns_servers: 8.8.8.8,8.8.4.4
+ipv4_gateway: 10.20.0.1
