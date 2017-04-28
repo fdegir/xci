@@ -55,6 +55,10 @@
       <source network='storage'/>
       <model type='virtio'/>
     </interface>
+    <interface type='network'>
+      <source network='vlan'/>
+      <model type='virtio'/>
+    </interface>
     <serial type='file'>
       <source path='/tmp/xci_console.log'/>
       <target port='0'/>
