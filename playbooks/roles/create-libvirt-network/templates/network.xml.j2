@@ -8,6 +8,8 @@
   </forward>
   {% endif %}
   <bridge name='{{ item.value.bridge_name }}' stp='on' delay='0'/>
+  {% if item.value.ip is defined %}
   <ip address='{{ item.value.ip }}' netmask='{{ item.value.netmask }}'>
   </ip>
+  {% endif %}
 </network>
