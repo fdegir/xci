@@ -44,6 +44,9 @@
       <model type='virtio'/>
     </interface>
     <interface type='network'>
+      {% if item.value.pxe_mac is defined %}
+      <mac address='{{ item.value.pxe_mac }}'/>
+      {% endif %}
       <source network='management'/>
       <model type='virtio'/>
     </interface>
