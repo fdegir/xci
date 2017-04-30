@@ -1,0 +1,19 @@
+---
+  {{ item.key }}:
+    uuid: "00000000-0000-0000-0000-000000000001"
+    driver_info:
+      power:
+        ipmi_address: "10.20.1.1"
+        ipmi_username: "{{ item.value.ipmi_username }}"
+        ipmi_password: "{{ item.value.ipmi_password }}"
+    nics:
+      -
+        mac: "{{ item.value.mac }}"
+    driver: "agent_ipmitool"
+    ipv4_address: "{{ item.value.ipmi_address }}"
+    properties:
+      cpu_arch: "{{ item.value.cpu_arch }}"
+      ram: "{{ item.value.ram }}"
+      disk_size: "{{ item.value.disk_size }}"
+      cpus: "{{ item.value.cpus }}"
+    name: "{{ item.key }}"

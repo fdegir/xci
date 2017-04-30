@@ -1,10 +1,9 @@
 ---
-- name: create directory to store qcow2 images
+- name: remove existing bifrost inventory file
   file: 
-    path: /var/lib/libvirt/images
-    state: directory
-    mode: 0755
-- name: destroy vm
+    path: /tmp/bifrost-inventory.yml
+    state: absent
+- name: create bifrost inventory file
   virt:
     name: "{{ item.key }}"
     command: destroy

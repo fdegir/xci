@@ -1,0 +1,9 @@
+---
+- hosts: localhost
+  remote_user: root
+  vars_files:
+    - ../var/network.yml
+    - ../var/node.yml
+  roles:
+    - create-libvirt-network
+    - create-libvirt-vm

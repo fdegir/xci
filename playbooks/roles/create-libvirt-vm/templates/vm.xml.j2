@@ -1,8 +1,8 @@
 <domain type='kvm'>
   <name>{{ item.key }}</name>
-  <memory unit='KiB'>{{ item.value.memory }}</memory>
-  <currentMemory unit='KiB'>{{ item.value.memory }}</currentMemory>
-  <vcpu placement='static'>{{ item.value.vcpu }}</vcpu>
+  <memory unit='KiB'>{{ item.value.ram }}</memory>
+  <currentMemory unit='KiB'>{{ item.value.ram }}</currentMemory>
+  <vcpu placement='static'>{{ item.value.cpus }}</vcpu>
   <resource>
     <partition>/machine</partition>
   </resource>
@@ -44,8 +44,8 @@
       <model type='virtio'/>
     </interface>
     <interface type='network'>
-      {% if item.value.pxe_mac is defined %}
-      <mac address='{{ item.value.pxe_mac }}'/>
+      {% if item.value.mac is defined %}
+      <mac address='{{ item.value.mac }}'/>
       {% endif %}
       <source network='management'/>
       <model type='virtio'/>

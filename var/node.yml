@@ -1,0 +1,23 @@
+---
+nodes:
+    opnfv:
+        ram: 4194304
+        cpus: 4
+        cpu_arch: x86_64
+        disk_size: 80G
+        mac: 52:54:00:82:1f:6b
+        ipmi_address: 10.20.1.2
+    controller00:
+        ram: 12582912
+        cpus: 8
+        cpu_arch: x86_64
+        disk_size: 80G
+        mac: 52:54:00:24:d5:b3
+        ipmi_address: 10.20.1.3
+    compute00:
+        ram: 8388608
+        cpus: 4
+        cpu_arch: x86_64
+        disk_size: 80G
+        mac: 52:54:00:67:4f:5c
+        ipmi_address: 10.20.1.4
