@@ -1,3 +1,4 @@
+#jinja2: lstrip_blocks: True
 ---
 {% for node in nodes %}
   {{ node }}:
@@ -18,5 +19,11 @@
       ram: "{{ nodes[node].ram }}"
       disk_size: "{{ nodes[node].disk_size }}"
       cpus: "{{ nodes[node].cpus }}"
+    {% if nodes[node].host_groups is defined %}
+    host_groups:
+      {% for host_group in nodes[node].host_groups %}
+      - "{{ host_group }}"
+      {% endfor %}
+    {% endif %}
     name: "{{ node }}"
 {% endfor %}
