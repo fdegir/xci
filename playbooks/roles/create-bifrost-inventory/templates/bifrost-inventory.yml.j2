@@ -1,19 +1,22 @@
 ---
-  {{ item.key }}:
+{% for node in nodes %}
+  {{ node }}:
     uuid: "00000000-0000-0000-0000-000000000001"
     driver_info:
       power:
-        ipmi_address: "10.20.1.1"
-        ipmi_username: "{{ item.value.ipmi_username }}"
-        ipmi_password: "{{ item.value.ipmi_password }}"
+        ssh_port: 22
+        ssh_username: "root"
+        ssh_virt_type: "virsh"
+        ssh_address: "10.20.1.1"
+        ssh_key_filename: "/root/.ssh/id_rsa"
     nics:
-      -
-        mac: "{{ item.value.mac }}"
-    driver: "agent_ipmitool"
-    ipv4_address: "{{ item.value.ipmi_address }}"
+      - mac: "{{ nodes[node].mac }}"
+    driver: "agent_ssh"
+    ipv4_address: "{{ nodes[node].ipv4_address }}"
     properties:
-      cpu_arch: "{{ item.value.cpu_arch }}"
-      ram: "{{ item.value.ram }}"
-      disk_size: "{{ item.value.disk_size }}"
-      cpus: "{{ item.value.cpus }}"
-    name: "{{ item.key }}"
+      cpu_arch: "{{ nodes[node].cpu_arch }}"
+      ram: "{{ nodes[node].ram }}"
+      disk_size: "{{ nodes[node].disk_size }}"
+      cpus: "{{ nodes[node].cpus }}"
+    name: "{{ node }}"
+{% endfor %}

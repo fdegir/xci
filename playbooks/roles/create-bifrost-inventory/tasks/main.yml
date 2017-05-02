@@ -1,31 +1,9 @@
 ---
 - name: remove existing bifrost inventory file
-  file: 
+  file:
     path: /tmp/bifrost-inventory.yml
     state: absent
 - name: create bifrost inventory file
-  virt:
-    name: "{{ item.key }}"
-    command: destroy
-  with_dict: "{{ nodes }}"
-  ignore_errors: True
-- name: undefine vm
-  virt:
-    name: "{{ item.key }}"
-    command: undefine
-  with_dict: "{{ nodes }}"
-  ignore_errors: True
-- name: remove qcow2 image for vm
-  file:
-    path: "/tmp/{{ item.key }}.qcow2"
-    state: absent
-  with_dict: "{{ nodes }}"
-- name: create qcow2 image for vm
-  shell: "qemu-img create -f qcow2 /tmp/{{ item.key }}.qcow2 {{ item.value.disk_size }}"
-  with_dict: "{{ nodes }}"
-- name: define vm
-  virt:
-    name: "{{ item.key }}"
-    command: define
-    xml: "{{ lookup('template', '../templates/vm.xml.j2') }}"
-  with_dict: "{{ nodes }}"
+  template:
+    src: "../templates/bifrost-inventory.yml.j2"
+    dest: "/tmp/bifrost-inventory.yml"
