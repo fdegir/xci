@@ -22,7 +22,7 @@
     state: absent
   with_dict: "{{ nodes }}"
 - name: create qcow2 image for vm
-  shell: "qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.key }}.qcow2 {{ item.value.disk_size }}"
+  shell: "qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.key }}.qcow2 {{ item.value.disk_size }}G"
   with_dict: "{{ nodes }}"
 - name: define vm
   virt:

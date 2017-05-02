@@ -8,3 +8,11 @@
     - create-libvirt-network
     - create-libvirt-vm
     - create-bifrost-inventory
+#    - remove /etc/dnsmasq.conf
+#    - install-bifrost
+#    - fix ironic config with the right drivers
+#    - restart ironic-conductor
+#    - add ironic user to libvirtd group
+#    - ensure ironic user has ssh keys
+#    - enroll-nodes
+#    - deploy-nodes
