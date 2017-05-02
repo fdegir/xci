@@ -1,13 +1,13 @@
 <domain type='kvm'>
   <name>{{ item.key }}</name>
-  <memory unit='KiB'>{{ item.value.ram }}</memory>
-  <currentMemory unit='KiB'>{{ item.value.ram }}</currentMemory>
+  <memory unit='MiB'>{{ item.value.ram }}</memory>
+  <currentMemory unit='MiB'>{{ item.value.ram }}</currentMemory>
   <vcpu placement='static'>{{ item.value.cpus }}</vcpu>
   <resource>
     <partition>/machine</partition>
   </resource>
   <os>
-    <type arch='x86_64' machine='pc'>hvm</type>
+    <type arch='{{ item.value.cpu_arch }}' machine='pc'>hvm</type>
     <boot dev='network'/>
     <boot dev='hd'/>
     <bootmenu enable='no'/>
@@ -30,7 +30,7 @@
     <emulator>/usr/bin/kvm</emulator>
     <disk type='file' device='disk'>
       <driver name='qemu' type='qcow2' cache='unsafe'/>
-      <source file='/var/lib/libvirt/images/xci.qcow2'/>
+      <source file='/var/lib/libvirt/images/{{ item.key }}.qcow2'/>
       <target dev='vda' bus='virtio'/>
     </disk>
     <controller type='ide' index='0'>
@@ -40,13 +40,13 @@
     <controller type='pci' index='0' model='pci-root'>
     </controller>
     <interface type='network'>
+      {% if item.value.mac is defined %}
+      <mac address='{{ item.value.mac }}'/>
+      {% endif %}
       <source network='admin'/>
       <model type='virtio'/>
     </interface>
     <interface type='network'>
-      {% if item.value.mac is defined %}
-      <mac address='{{ item.value.mac }}'/>
-      {% endif %}
       <source network='management'/>
       <model type='virtio'/>
     </interface>
@@ -63,7 +63,7 @@
       <model type='virtio'/>
     </interface>
     <serial type='file'>
-      <source path='/tmp/xci_console.log'/>
+      <source path='/tmp/{{ item.key }}_console.log'/>
       <target port='0'/>
     </serial>
     <serial type='pty'>
@@ -71,7 +71,7 @@
       <target port='1'/>
     </serial>
     <console type='file'>
-      <source path='/tmp/xci_console.log'/>
+      <source path='/tmp/{{ item.key }}_console.log'/>
       <target type='serial' port='0'/>
     </console>
     <input type='mouse' bus='ps2'/>
