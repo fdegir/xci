@@ -1,0 +1,56 @@
+---
+- name: cleanup leftovers of previous deployment
+  file:
+    path: "{{ openstack_bifrost_path }}"
+    state: absent
+    recurse: no
+- name: clone bifrost repo
+  git:
+    repo: "{{ openstack_bifrost_git_url }}"
+    dest: "{{ openstack_bifrost_path }}"
+    version: "{{ openstack_bifrost_version }}"
+- name: remove dnsmasq.conf
+  file:
+    path: "/etc/dnsmasq.conf"
+    state: absent
+  become: true
+- name: stop existing libvirt dnsmasq processes
+  command: killall -w dnsmasq
+  become: true
+- name: copy opnfv target group vars
+  copy:
+    src: "{{ item }}"
+    dest: "{{ openstack_bifrost_path }}/playbooks/inventory/group_vars/{{ item }}"
+  with_items:
+    - target
+    - baremetal
+    - localhost
+- name: install bifrost
+  command: "ansible-playbook -i {{ openstack_bifrost_path }}/playbooks/inventory/target {{ openstack_bifrost_path }}/playbooks/install.yaml"
+- name: configure enabled drivers for ironic
+  replace:
+    dest: "/etc/ironic/ironic.conf"
+    regexp: "^enabled_drivers.*"
+    replace: "enabled_drivers = agent_ipmitool,pxe_ipmitool,agent_ssh"
+  become: true
+- name: configure enabled drivers for ironic-inspector
+  replace:
+    dest: "/etc/ironic-inspector/inspector.conf"
+    regexp: "^enroll_node_driver.*"
+    replace: "enroll_node_driver = agent_ipmitool,pxe_ipmitool,agent_ssh"
+  become: true
+- name: restart ironic services
+  service:
+    name: "{{ item }}"
+    state: restarted
+  with_items:
+    - ironic-conductor
+    - ironic-inspector
+  become: true
+#    - create-bifrost-inventory
+#  tasks:
+#---
+#- name: install bifrost
+#  template:
+#    src: "../templates/bifrost-inventory.yml.j2"
+#    dest: "/tmp/bifrost-inventory.yml"

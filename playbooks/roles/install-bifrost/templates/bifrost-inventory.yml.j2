@@ -2,14 +2,14 @@
 ---
 {% for node in nodes %}
   {{ node }}:
-    uuid: "00000000-0000-0000-0000-00000000000{{ loop.index }}"
+    uuid: "00000000-0000-0000-0000-000000000001"
     driver_info:
       power:
         ssh_port: 22
-        ssh_username: "ironic"
+        ssh_username: "root"
         ssh_virt_type: "virsh"
         ssh_address: "10.20.1.1"
-        ssh_key_filename: "/home/ironic/.ssh/id_rsa"
+        ssh_key_filename: "/root/.ssh/id_rsa"
     nics:
       - mac: "{{ nodes[node].mac }}"
     driver: "agent_ssh"

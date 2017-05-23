@@ -1,0 +1,68 @@
+---
+- name: collect facts about existing networks
+  virt_net:
+    command: facts
+- name: destroy libvirt network
+  virt_net:
+    name: "{{ item.key }}"
+    command: destroy
+  with_dict: "{{ networks }}"
+  when: "{{ item.key in ansible_libvirt_networks and ansible_libvirt_networks[ item.key ].state == 'active'}}"
+- name: undefine libvirt network
+  virt_net:
+    name: "{{ item.key }}"
+    command: undefine
+  with_dict: "{{ networks }}"
+  when: "{{ item.key in ansible_libvirt_networks }}"
+- name: define libvirt network
+  virt_net:
+    name: "{{ item.key }}"
+    command: define
+    xml: "{{ lookup('template', 'network.xml.j2') }}"
+#    xml: "{{ lookup('template', '../templates/network.xml.j2') }}"
+  with_dict: "{{ networks }}"
+- name: start libvirt network
+  virt_net:
+    name: "{{ item.key }}"
+    state: active
+  with_dict: "{{ networks }}"
+- name: set libvirt network to autostart
+  virt_net:
+    name: "{{ item.key }}"
+    autostart: yes
+  with_dict: "{{ networks }}"
+- name: create directory to store qcow2 images
+  file:
+    path: /var/lib/libvirt/images
+    state: directory
+    mode: 0755
+  become: true
+- name: destroy vm
+  virt:
+    name: "{{ item.key }}"
+    command: destroy
+  with_dict: "{{ nodes }}"
+  ignore_errors: True
+- name: undefine vm
+  virt:
+    name: "{{ item.key }}"
+    command: undefine
+  with_dict: "{{ nodes }}"
+  ignore_errors: True
+- name: remove qcow2 image for vm
+  file:
+    path: "/var/lib/libvirt/images/{{ item.key }}.qcow2"
+    state: absent
+  with_dict: "{{ nodes }}"
+  become: true
+- name: create qcow2 image for vm
+  shell: "qemu-img create -f qcow2 /var/lib/libvirt/images/{{ item.key }}.qcow2 {{ item.value.disk_size }}G"
+  with_dict: "{{ nodes }}"
+  become: true
+- name: define vm
+  virt:
+    name: "{{ item.key }}"
+    command: define
+    xml: "{{ lookup('template', 'vm.xml.j2') }}"
+#    xml: "{{ lookup('template', '../templates/vm.xml.j2') }}"
+  with_dict: "{{ nodes }}"
