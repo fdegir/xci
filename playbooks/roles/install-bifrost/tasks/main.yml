@@ -47,10 +47,3 @@
     - ironic-conductor
     - ironic-inspector
   become: true
-#    - create-bifrost-inventory
-#  tasks:
-#---
-#- name: install bifrost
-#  template:
-#    src: "../templates/bifrost-inventory.yml.j2"
-#    dest: "/tmp/bifrost-inventory.yml"
