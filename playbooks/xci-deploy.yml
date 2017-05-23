@@ -2,10 +2,8 @@
 - hosts: localhost
   connection: local
   vars_files:
-    - ../var/opnfv.yml
-    - ../var/node.yml
-    - ../var/network.yml
+    - ../vars/opnfv.yml
   roles:
-    - create-virtual-environment
+    - create-libvirt-environment
     - install-bifrost
     - create-bifrost-inventory

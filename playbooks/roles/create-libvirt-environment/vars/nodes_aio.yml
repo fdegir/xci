@@ -1,0 +1,12 @@
+---
+nodes:
+    opnfv:
+        cpu_arch: x86_64
+        ram: 12288
+        disk_size: 80
+        cpus: 8
+        mac: 52:54:00:82:1f:6b
+        ipv4_address: 10.20.1.2
+        host_groups:
+          - baremetal
+          - virtual

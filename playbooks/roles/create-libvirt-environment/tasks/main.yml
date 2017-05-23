@@ -1,0 +1,3 @@
+---
+- include: create-libvirt-networks.yml
+- include: create-libvirt-nodes.yml
