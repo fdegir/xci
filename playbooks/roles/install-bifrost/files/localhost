@@ -6,7 +6,6 @@
 # to virbr0 in roles, can be overridden here.
 network_interface: "br-admin"
 
-
 # ironic_db_password ironic user password for rabbit
 ironic_db_password: aSecretPassword473z
 # mysql_username: Default mysql admin username
@@ -64,8 +63,7 @@ create_ipa_image: false
 # Dnsmasq default route for clients. If not defined, dnsmasq will push to
 # clients as default route the same IP of the dnsmasq server.
 # Default: undefined
-#ipv4_gateway: 10.20.1.1
-#dnsmasq_router: {{ ipv4_gateway }}
+# dnsmasq_router: {{ ipv4_gateway }}
 
 # Dnsmasq default nameserver for clients. If not defined, this setting
 # will be ignored.

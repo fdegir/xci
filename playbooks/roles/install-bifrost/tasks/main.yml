@@ -4,11 +4,6 @@
     path: "{{ openstack_bifrost_path }}"
     state: absent
     recurse: no
-- name: clone bifrost repo
-  git:
-    repo: "{{ openstack_bifrost_git_url }}"
-    dest: "{{ openstack_bifrost_path }}"
-    version: "{{ openstack_bifrost_version }}"
 - name: remove dnsmasq.conf
   file:
     path: "/etc/dnsmasq.conf"
@@ -17,6 +12,21 @@
 - name: stop existing libvirt dnsmasq processes
   command: killall -w dnsmasq
   become: true
+- name: update resolv.conf
+  lineinfile:
+    dest: /etc/resolv.conf
+    state: present
+    create: yes
+    line: "{{ item }}"
+  with_items:
+    - "nameserver 8.8.8.8"
+    - "nameserver 8.8.4.4"
+  become: true
+- name: clone bifrost repo
+  git:
+    repo: "{{ openstack_bifrost_git_url }}"
+    dest: "{{ openstack_bifrost_path }}"
+    version: "{{ openstack_bifrost_version }}"
 - name: copy opnfv target group vars
   copy:
     src: "{{ item }}"
@@ -46,4 +56,12 @@
   with_items:
     - ironic-conductor
     - ironic-inspector
+  become: true
+- name: copy ssh keys to ironic user
+  copy:
+    src: "{{ lookup('env', 'HOME') }}/.ssh"
+    dest: "/home/ironic/.ssh"
+    group: ironic
+    owner: ironic
+    mode: "g-rwx,o-rwx"
   become: true
