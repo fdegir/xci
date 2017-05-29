@@ -4,7 +4,7 @@
 
 # The network interface that bifrost will be operating on.  Defaults
 # to virbr0 in roles, can be overridden here.
-network_interface: "br-admin"
+network_interface: "br-mgmt"
 
 # The path to the SSH key to be utilized for testing and burn-in
 # to configuration drives. When set, it should be set in both baremetal

@@ -1,6 +1,6 @@
 ---
 ironic_url: "http://localhost:6385/"
-network_interface: "br-admin"
+network_interface: "br-mgmt"
 ironic_db_password: aSecretPassword473z
 enable_keystone: false
 deploy_image_filename: "deployment_image.qcow2"
@@ -23,12 +23,15 @@ create_ipa_image: false
 # Dnsmasq default route for clients. If not defined, dnsmasq will push to
 # clients as default route the same IP of the dnsmasq server.
 # Default: undefined
-dnsmasq_router: 10.20.1.2
-dhcp_pool_start: 10.20.1.10
-dhcp_pool_end: 10.20.1.20
+#dnsmasq_router: 10.20.1.2
+#dhcp_pool_start: 10.20.1.10
+#dhcp_pool_end: 10.20.1.20
+dnsmasq_router: 172.29.236.2
+dhcp_pool_start: 172.29.236.10
+dhcp_pool_end: 172.29.236.20
 
 # Dnsmasq default nameserver for clients. If not defined, this setting
 # will be ignored.
 # Default: undefined
 dnsmasq_dns_servers: 8.8.8.8,8.8.4.4
-ipv4_gateway: 10.20.1.1
+ipv4_gateway: 172.29.236.1
