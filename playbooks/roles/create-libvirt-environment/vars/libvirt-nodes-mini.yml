@@ -1,6 +1,6 @@
 ---
 nodes:
-    opnfv:
+    xci-opnfv:
         cpu_arch: x86_64
         ram: 4096
         disk_size: 80
@@ -10,7 +10,7 @@ nodes:
         host_groups:
           - baremetal
           - virtual
-    controller00:
+    xci-controller00:
         cpu_arch: x86_64
         ram: 12288
         disk_size: 80
@@ -21,7 +21,7 @@ nodes:
           - baremetal
           - virtual
           - controller
-    compute00:
+    xci-compute00:
         cpu_arch: x86_64
         ram: 8192
         disk_size: 80

@@ -2,8 +2,6 @@
 ironic_url: "http://localhost:6385/"
 network_interface: "br-admin"
 ironic_db_password: aSecretPassword473z
-#mysql_username: root
-#mysql_password: secret
 enable_keystone: false
 deploy_image_filename: "deployment_image.qcow2"
 create_image_via_dib: true

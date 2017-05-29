@@ -1,5 +1,6 @@
 ---
-- include_vars: "networks.yml"
+- include_vars: "libvirt-networks.yml"
+  connection: local
 - name: collect facts about existing networks
   virt_net:
     command: facts
@@ -20,7 +21,6 @@
     name: "{{ item.key }}"
     command: define
     xml: "{{ lookup('template', 'network.xml.j2') }}"
-#    xml: "{{ lookup('template', '../templates/network.xml.j2') }}"
   with_dict: "{{ networks }}"
 - name: start libvirt network
   virt_net:

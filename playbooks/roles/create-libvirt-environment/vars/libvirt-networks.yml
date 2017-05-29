@@ -1,0 +1,30 @@
+---
+networks:
+    xci-admin:
+        ip: '10.20.1.1'
+        netmask: '255.255.255.128'
+        bridge_name: 'br-admin'
+#    xci-net1:
+#        ip: '172.29.236.1'
+#        netmask: '255.255.252.0'
+#        bridge_name: 'br-net1'
+#        forward_mode: 'nat'
+#    xci-net2:
+#        ip: '172.29.240.1'
+#        netmask: '255.255.252.0'
+#        bridge_name: 'br-net2'
+    xci-management:
+        ip: '172.29.236.1'
+        netmask: '255.255.252.0'
+        bridge_name: 'br-mgmt'
+        forward_mode: 'nat'
+    xci-tunnel:
+        ip: '172.29.240.1'
+        netmask: '255.255.252.0'
+        bridge_name: 'br-tunnel'
+    xci-storage:
+        ip: '172.29.244.1'
+        netmask: '255.255.252.0'
+        bridge_name: 'br-storage'
+    xci-vlan:
+        bridge_name: 'br-vlan'
