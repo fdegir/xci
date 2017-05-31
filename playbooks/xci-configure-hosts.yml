@@ -4,5 +4,19 @@
   vars_files:
     - ../vars/opnfv.yml
   roles:
-#    - configure-networking
+    - configure-networking
+    - configure-ssh-keys
+
+- hosts: target
+  remote_user: root
+  vars_files:
+    - ../vars/opnfv.yml
+  roles:
     - configure-target-hosts
+
+- hosts: opnfv
+  remote_user: root
+  vars_files:
+    - ../vars/opnfv.yml
+  roles:
+    - configure-deployment-host

@@ -1,0 +1,33 @@
+- block:
+    - name: make NFS directories
+      file:
+        dest: "{{ item }}"
+        mode: 0777
+        state: directory
+      with_items:
+        - "/images"
+        - "/volumes"
+    - name: configure NFS service
+      lineinfile:
+        dest: /etc/services
+        state: present
+        create: yes
+        line: "{{ item }}"
+      with_items:
+        - "nfs        2049/tcp"
+        - "nfs        2049/udp"
+    - name: configure NFS exports
+      lineinfile:
+        dest: /etc/exports
+        state: present
+        create: yes
+        line: "{{ item }}"
+      with_items:
+        - "/images         *(rw,sync,no_subtree_check,no_root_squash)"
+        - "/volumes        *(rw,sync,no_subtree_check,no_root_squash)"
+    # TODO: the service name might be different on other distros and needs to be adjusted
+    - name: restart ubuntu xenial NFS service
+      service:
+        name: nfs-kernel-server
+        state: restarted
+  when: ansible_distribution_release == "xenial"

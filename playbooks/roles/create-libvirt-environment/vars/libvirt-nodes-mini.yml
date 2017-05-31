@@ -9,7 +9,6 @@ nodes:
         ipv4_address: 172.29.236.11
         host_groups:
           - baremetal
-          - virtual
     controller00:
         cpu_arch: x86_64
         ram: 12288
@@ -19,7 +18,7 @@ nodes:
         ipv4_address: 172.29.236.12
         host_groups:
           - baremetal
-          - virtual
+          - target
           - controller
     compute00:
         cpu_arch: x86_64
@@ -30,5 +29,5 @@ nodes:
         ipv4_address: 172.29.236.13
         host_groups:
           - baremetal
-          - virtual
+          - target
           - compute

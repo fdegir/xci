@@ -1,0 +1,8 @@
+- name: copy ssh keys
+  copy:
+    src: "{{ item }}"
+    dest: "/root/.ssh"
+    mode: "0600"
+  with_items:
+    - "/home/jenkins/.ssh/id_rsa"
+    - "/home/jenkins/.ssh/id_rsa.pub"
