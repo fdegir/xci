@@ -1,33 +1,33 @@
 ---
 nodes:
-    xci-opnfv:
+    opnfv:
         cpu_arch: x86_64
         ram: 4096
         disk_size: 80
         cpus: 4
         mac: 52:54:00:82:1f:6b
-        ipv4_address: 172.29.236.2
+        ipv4_address: 172.29.236.11
         host_groups:
           - baremetal
           - virtual
-    xci-controller00:
+    controller00:
         cpu_arch: x86_64
         ram: 12288
         disk_size: 80
         cpus: 8
         mac: 52:54:00:24:d5:b3
-        ipv4_address: 172.29.236.3
+        ipv4_address: 172.29.236.12
         host_groups:
           - baremetal
           - virtual
           - controller
-    xci-compute00:
+    compute00:
         cpu_arch: x86_64
         ram: 8192
         disk_size: 80
         cpus: 4
         mac: 52:54:00:67:4f:5c
-        ipv4_address: 172.29.236.4
+        ipv4_address: 172.29.236.13
         host_groups:
           - baremetal
           - virtual

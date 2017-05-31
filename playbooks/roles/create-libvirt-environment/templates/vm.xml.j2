@@ -43,19 +43,19 @@
       {% if item.value.mac is defined %}
       <mac address='{{ item.value.mac }}'/>
       {% endif %}
-      <source network='xci-management'/>
+      <source network='management'/>
       <model type='virtio'/>
     </interface>
     <interface type='network'>
-      <source network='xci-vxlan'/>
+      <source network='vxlan'/>
       <model type='virtio'/>
     </interface>
     <interface type='network'>
-      <source network='xci-vlan'/>
+      <source network='vlan'/>
       <model type='virtio'/>
     </interface>
     <interface type='network'>
-      <source network='xci-storage'/>
+      <source network='storage'/>
       <model type='virtio'/>
     </interface>
     <serial type='file'>

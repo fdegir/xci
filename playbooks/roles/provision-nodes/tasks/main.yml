@@ -1,0 +1,16 @@
+---
+- name: enroll nodes
+  command: "ansible-playbook -i inventory/bifrost_inventory.py enroll-dynamic.yaml"
+  args:
+    chdir: "{{ openstack_bifrost_path }}/playbooks"
+  environment:
+    BIFROST_INVENTORY_SOURCE: "{{ bifrost_inventory_file }}"
+- name: deploy nodes
+  command: "ansible-playbook -i inventory/bifrost_inventory.py deploy-dynamic.yaml"
+  args:
+    chdir: "{{ openstack_bifrost_path }}/playbooks"
+  environment:
+    BIFROST_INVENTORY_SOURCE: "{{ bifrost_inventory_file }}"
+#- name: ensure nodes are provisioned and accessible
+#  local_action: wait_for host="{{ ansible_ssh_host | default(inventory_hostname) }}" port=22 delay=20 connect_timeout=200
+#  become: false

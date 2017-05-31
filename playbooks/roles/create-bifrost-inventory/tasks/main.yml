@@ -1,9 +1,9 @@
 ---
 - name: remove existing bifrost inventory file
   file:
-    path: /tmp/bifrost-inventory.yml
+    path: "{{ bifrost_inventory_file }}"
     state: absent
 - name: create bifrost inventory file
   template:
-    src: "../templates/bifrost-inventory.yml.j2"
-    dest: "/tmp/bifrost-inventory.yml"
+    src: "templates/bifrost-inventory.yml.j2"
+    dest: "{{ bifrost_inventory_file }}"

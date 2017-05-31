@@ -1,0 +1,66 @@
+# interfaces file for compute00
+# Loopback interface
+auto lo
+iface lo inet loopback
+
+# Physical interface
+auto ens3
+iface ens3 inet manual
+
+# Physical interface
+auto ens4
+iface ens4 inet manual
+
+# Physical interface
+auto ens5
+iface ens5 inet manual
+
+# Physical interface
+auto ens6
+iface ens6 inet manual
+
+# Container/Host management bridge
+auto br-mgmt
+iface br-mgmt inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports ens3
+    address 172.29.236.13
+    netmask 255.255.252.0
+    gateway 172.29.236.1
+    dns-nameservers 8.8.8.8 8.8.4.4
+    
+# OpenStack Networking VXLAN (tunnel/overlay) bridge
+auto br-vxlan
+iface br-vxlan inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports ens4
+    address 172.29.240.13
+    netmask 255.255.252.0
+
+# OpenStack Networking VLAN bridge
+auto br-vlan
+iface br-vlan inet manual
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    pre-up ip link add br-vlan-veth type veth peer name eth12 || true
+# Set both ends UP
+    pre-up ip link set br-vlan-veth up
+    pre-up ip link set eth12 up
+# Delete veth pair on DOWN
+    post-down ip link del br-vlan-veth || true
+    bridge_ports eth5 br-vlan-veth
+
+# Storage bridge (optional)
+auto br-storage
+iface br-storage inet static
+    bridge_stp off
+    bridge_waitport 0
+    bridge_fd 0
+    bridge_ports ens6
+    address 172.29.244.13
+    netmask 255.255.252.0

@@ -1,0 +1,12 @@
+#- name: upload ssh keys to nodes
+#  copy:
+#    src: "{{ item }}"
+#    dest: "/root/.ssh"
+#  with_items:
+#    - "{{ ansible_env.HOME }}/.ssh/id_rsa"
+#    - "{{ ansible_env.HOME }}/.ssh/id_rsa.pub"
+#  become: no
+- hosts: localhost
+  tasks:
+    - debug:
+        msg: "{{ ansible_env.HOME }}"

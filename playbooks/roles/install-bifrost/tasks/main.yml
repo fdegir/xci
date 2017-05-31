@@ -36,7 +36,9 @@
     - baremetal
     - localhost
 - name: install bifrost
-  command: "ansible-playbook -i {{ openstack_bifrost_path }}/playbooks/inventory/target {{ openstack_bifrost_path }}/playbooks/install.yaml"
+  command: "ansible-playbook -i inventory/target install.yaml"
+  args:
+    chdir: "{{ openstack_bifrost_path }}/playbooks"
 - name: configure enabled drivers for ironic
   replace:
     dest: "/etc/ironic/ironic.conf"

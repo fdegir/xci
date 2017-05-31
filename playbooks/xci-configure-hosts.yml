@@ -1,0 +1,8 @@
+---
+- hosts: baremetal
+  remote_user: root
+  vars_files:
+    - ../vars/opnfv.yml
+  roles:
+#    - configure-networking
+    - configure-target-hosts

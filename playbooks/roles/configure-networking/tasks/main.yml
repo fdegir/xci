@@ -1,0 +1,43 @@
+- name: ensure nodes are up before continuing
+  wait_for:
+    host: "{{ ansible_ssh_host | default(inventory_hostname) }}"
+    port: 22
+    delay: 10
+    connect_timeout: 200
+  connection: local
+  become: false
+- name: ensure glean rules are removed
+  file:
+    path: "/etc/udev/rules.d/99-glean.rules"
+    state: absent
+- name: ensure interfaces.d folder is empty
+  shell: "/bin/rm -rf /etc/network/interfaces.d/*"
+- name: configure interfaces
+  copy:
+    src: "files/{{ inventory_hostname }}_interfaces"
+    dest: "/etc/network/interfaces"
+- name: update /etc/hosts on all nodes
+  lineinfile:
+    dest: "/etc/hosts"
+    line: "{{ hostvars[item].ansible_ssh_host }} {{ hostvars[item].inventory_hostname }}"
+    state: present
+  with_items: "{{ groups.baremetal }}"
+- name: reboot nodes
+  become: yes
+  shell: "sleep 2 && /sbin/shutdown -r now"
+  async: 1
+  poll: 0
+- name: ensure nodes are up before continuing
+  wait_for:
+    host: "{{ ansible_ssh_host | default(inventory_hostname) }}"
+    port: 22
+    delay: 10
+    connect_timeout: 200
+  connection: local
+  become: false
+- name: restart ubuntu xenial ntp service
+  service:
+    name: ntp
+    state: restarted
+    sleep: 10
+  when: ansible_distribution_release == "xenial"

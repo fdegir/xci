@@ -7,3 +7,4 @@
     - create-libvirt-environment
     - install-bifrost
     - create-bifrost-inventory
+    - provision-nodes

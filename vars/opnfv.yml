@@ -10,6 +10,7 @@
 openstack_bifrost_path: "/home/jenkins/fdegir/github/bifrost"
 openstack_bifrost_git_url: "https://review.openstack.org/p/openstack/bifrost.git"
 openstack_bifrost_version: "master"
+bifrost_inventory_file: "/tmp/bifrost-inventory.yml"
 xci_flavor: "mini"
 OPNFV_RELENG_GIT_URL: "{{ lookup('env','OPNFV_RELENG_GIT_URL') }}"
 OPNFV_RELENG_PATH: "{{ lookup('env','OPNFV_RELENG_PATH') }}"

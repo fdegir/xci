@@ -7,8 +7,8 @@ deploy_image_filename: "deployment_image.qcow2"
 create_image_via_dib: true
 dib_os_release: "xenial"
 dib_os_element: "ubuntu-minimal"
-dib_os_packages: "vlan,vim,less,bridge-utils,sudo,language-pack-en,iputils-ping,rsyslog,curl,python,debootstrap,ifenslave,ifenslave-2.6,lsof,lvm2,tcpdump,nfs-kernel-server,chrony,iptables,resolvconf,dbus"
-dib_packages: "vlan,vim,less,bridge-utils,sudo,language-pack-en,iputils-ping,rsyslog,curl,python,debootstrap,ifenslave,ifenslave-2.6,lsof,lvm2,tcpdump,nfs-kernel-server,chrony,iptables,resolvconf,dbus"
+dib_os_packages: "vlan,vim,less,bridge-utils,sudo,language-pack-en,iputils-ping,rsyslog,curl,python,debootstrap,ifenslave,ifenslave-2.6,lsof,lvm2,tcpdump,nfs-kernel-server,ntp,ntpdate,iptables,resolvconf,dbus"
+dib_packages: "vlan,vim,less,bridge-utils,sudo,language-pack-en,iputils-ping,rsyslog,curl,python,debootstrap,ifenslave,ifenslave-2.6,lsof,lvm2,tcpdump,nfs-kernel-server,ntp,ntpdate,iptables,resolvconf,dbus"
 dib_elements: "enable-serial-console simple-init devuser growroot {{ extra_dib_elements }}"
 extra_dib_elements: "devuser growroot openssh-server"
 
